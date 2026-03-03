@@ -102,9 +102,9 @@ func (l *LinkedList) Insert(index, val int) error {
 	if index < 0 || index > l.size {
 		return fmt.Errorf("index out of range")
 	}
-	
+
 	node := &Node{Val: val}
-	
+
 	if index == 0 {
 		node.Next = l.head
 		l.head = node
@@ -114,19 +114,19 @@ func (l *LinkedList) Insert(index, val int) error {
 		l.size++
 		return nil
 	}
-	
+
 	curr := l.head
 	for i := 0; i < index-1; i++ {
 		curr = curr.Next
 	}
-	
+
 	node.Next = curr.Next
 	curr.Next = node
-	
+
 	if node.Next == nil {
 		l.tail = node
 	}
-	
+
 	l.size++
 	return nil
 }
@@ -136,7 +136,7 @@ func (l *LinkedList) Delete(index int) error {
 	if index < 0 || index >= l.size {
 		return fmt.Errorf("index out of range")
 	}
-	
+
 	if index == 0 {
 		l.head = l.head.Next
 		if l.head == nil {
@@ -145,17 +145,17 @@ func (l *LinkedList) Delete(index int) error {
 		l.size--
 		return nil
 	}
-	
+
 	curr := l.head
 	for i := 0; i < index-1; i++ {
 		curr = curr.Next
 	}
-	
+
 	curr.Next = curr.Next.Next
 	if curr.Next == nil {
 		l.tail = curr
 	}
-	
+
 	l.size--
 	return nil
 }
@@ -165,12 +165,12 @@ func (l *LinkedList) Get(index int) (int, error) {
 	if index < 0 || index >= l.size {
 		return 0, fmt.Errorf("index out of range")
 	}
-	
+
 	curr := l.head
 	for i := 0; i < index; i++ {
 		curr = curr.Next
 	}
-	
+
 	return curr.Val, nil
 }
 
@@ -197,11 +197,11 @@ func (l *LinkedList) Len() int {
 
 // PerformanceMetrics 性能指标
 type PerformanceMetrics struct {
-	Operation    string
-	ArrayTime    int64  // 纳秒
-	ListTime     int64  // 纳秒
-	ArrayMemory  uint64 // 字节
-	ListMemory   uint64 // 字节
+	Operation   string
+	ArrayTime   int64  // 纳秒
+	ListTime    int64  // 纳秒
+	ArrayMemory uint64 // 字节
+	ListMemory  uint64 // 字节
 }
 
 // WhyArrayIsBetter 解释为什么数组更适合现代互联网开发
@@ -267,22 +267,21 @@ type CacheLineExample struct {
 }
 
 // MemoryLayoutComparison 内存布局对比
-func MemoryLayoutComparison() string {
-	return `
-内存布局对比：
-
-数组（连续内存）：
-[0|1|2|3|4|5|6|7|8|9] <- 所有元素紧密排列，一次可加载多个到缓存
-
-链表（分散内存）：
-[0|ptr] -> [1|ptr] -> [2|ptr] -> [3|ptr] -> [4|ptr]
-  堆地址1    堆地址n    堆地址m    堆地址x    堆地址y
-  
-每个节点分散在不同的内存位置，每次访问都可能触发缓存未命中
-
-内存占用对比（int32为例）：
-- 数组：10个元素 = 40字节
-- 链表：10个节点 = 10*(4+8+padding) ≈ 160字节（4倍差距）
-`
-}
-
+//func MemoryLayoutComparison() string {
+//	return `
+//内存布局对比：
+//
+//数组（连续内存）：
+//[0|1|2|3|4|5|6|7|8|9] <- 所有元素紧密排列，一次可加载多个到缓存
+//
+//链表（分散内存）：
+//[0|ptr] -> [1|ptr] -> [2|ptr] -> [3|ptr] -> [4|ptr]
+//  堆地址1    堆地址n    堆地址m    堆地址x    堆地址y
+//
+//每个节点分散在不同的内存位置，每次访问都可能触发缓存未命中
+//
+//内存占用对比（int32为例）：
+//- 数组：10个元素 = 40字节
+//- 链表：10个节点 = 10*(4+8+padding) ≈ 160字节（4倍差距）
+//`
+//}

@@ -67,7 +67,7 @@ type KV struct {
 	Deleted  bool
 }
 
-// EventType 用于区分 Put/Delete 事件。
+// EventType 用于区分 Put2/Delete 事件。
 type EventType int
 
 const (

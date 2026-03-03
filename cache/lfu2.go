@@ -6,16 +6,16 @@ import (
 )
 
 // LFUCache2 Least Frequently Used 缓存
-type LFUCache struct {
+type LFUCache2 struct {
 	capacity int
-	minFreq  int                      // 最小频率
-	cache    map[interface{}]*lfuNode // key -> node
-	freqMap  map[int]*list.List       // frequency -> 该频率的元素列表
+	minFreq  int                       // 最小频率
+	cache    map[interface{}]*lfuNode2 // key -> node
+	freqMap  map[int]*list.List        // frequency -> 该频率的元素列表
 	mu       sync.Mutex
 }
 
 // lfuNode2 LFU缓存节点
-type lfuNode struct {
+type lfuNode2 struct {
 	key   interface{}
 	value interface{}
 	freq  int           // 访问频率
@@ -23,20 +23,20 @@ type lfuNode struct {
 }
 
 // NewLFUCache2 创建一个新的LFU缓存
-func NewLFUCache(capacity int) *LFUCache {
+func NewLFUCache2(capacity int) *LFUCache2 {
 	if capacity <= 0 {
 		capacity = 10
 	}
-	return &LFUCache{
+	return &LFUCache2{
 		capacity: capacity,
 		minFreq:  0,
-		cache:    make(map[interface{}]*lfuNode),
+		cache:    make(map[interface{}]*lfuNode2),
 		freqMap:  make(map[int]*list.List),
 	}
 }
 
 // Get 获取缓存值
-func (lfu *LFUCache) Get(key interface{}) (interface{}, bool) {
+func (lfu *LFUCache2) Get(key interface{}) (interface{}, bool) {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -52,7 +52,7 @@ func (lfu *LFUCache) Get(key interface{}) (interface{}, bool) {
 }
 
 // Put2 设置缓存值
-func (lfu *LFUCache) Put(key, value interface{}) {
+func (lfu *LFUCache2) Put(key, value interface{}) {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -73,7 +73,7 @@ func (lfu *LFUCache) Put(key, value interface{}) {
 	}
 
 	// 添加新节点
-	node := &lfuNode{
+	node := &lfuNode2{
 		key:   key,
 		value: value,
 		freq:  1,
@@ -85,7 +85,7 @@ func (lfu *LFUCache) Put(key, value interface{}) {
 }
 
 // Delete 删除缓存项
-func (lfu *LFUCache) Delete(key interface{}) bool {
+func (lfu *LFUCache2) Delete(key interface{}) bool {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -99,7 +99,7 @@ func (lfu *LFUCache) Delete(key interface{}) bool {
 }
 
 // increaseFreq 增加节点的访问频率
-func (lfu *LFUCache) increaseFreq(node *lfuNode) {
+func (lfu *LFUCache2) increaseFreq(node *lfuNode2) {
 	// 从旧频率列表中移除
 	oldFreq := node.freq
 	if freqList, ok := lfu.freqMap[oldFreq]; ok {
@@ -122,7 +122,7 @@ func (lfu *LFUCache) increaseFreq(node *lfuNode) {
 }
 
 // addToFreqList 将节点添加到对应频率的列表
-func (lfu *LFUCache) addToFreqList(node *lfuNode) {
+func (lfu *LFUCache2) addToFreqList(node *lfuNode2) {
 	freq := node.freq
 
 	if _, ok := lfu.freqMap[freq]; !ok {
@@ -133,7 +133,7 @@ func (lfu *LFUCache) addToFreqList(node *lfuNode) {
 }
 
 // removeLFU 移除最少使用的元素
-func (lfu *LFUCache) removeLFU() {
+func (lfu *LFUCache2) removeLFU() {
 	// 获取最小频率的列表
 	freqList, ok := lfu.freqMap[lfu.minFreq]
 	if !ok || freqList.Len() == 0 {
@@ -143,13 +143,13 @@ func (lfu *LFUCache) removeLFU() {
 	// 移除列表头部的元素（最旧的）
 	elem := freqList.Front()
 	if elem != nil {
-		node := elem.Value.(*lfuNode)
+		node := elem.Value.(*lfuNode2)
 		lfu.removeNode(node)
 	}
 }
 
 // removeNode 移除指定节点
-func (lfu *LFUCache) removeNode(node *lfuNode) {
+func (lfu *LFUCache2) removeNode(node *lfuNode2) {
 	// 从频率列表中移除
 	if freqList, ok := lfu.freqMap[node.freq]; ok {
 		freqList.Remove(node.elem)
@@ -164,29 +164,29 @@ func (lfu *LFUCache) removeNode(node *lfuNode) {
 }
 
 // Len 返回缓存中的元素数量
-func (lfu *LFUCache) Len() int {
+func (lfu *LFUCache2) Len() int {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 	return len(lfu.cache)
 }
 
 // Cap 返回缓存容量
-func (lfu *LFUCache) Cap() int {
+func (lfu *LFUCache2) Cap() int {
 	return lfu.capacity
 }
 
 // Clear 清空缓存
-func (lfu *LFUCache) Clear() {
+func (lfu *LFUCache2) Clear() {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
-	lfu.cache = make(map[interface{}]*lfuNode)
+	lfu.cache = make(map[interface{}]*lfuNode2)
 	lfu.freqMap = make(map[int]*list.List)
 	lfu.minFreq = 0
 }
 
 // Contains 检查key是否存在
-func (lfu *LFUCache) Contains(key interface{}) bool {
+func (lfu *LFUCache2) Contains(key interface{}) bool {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -195,7 +195,7 @@ func (lfu *LFUCache) Contains(key interface{}) bool {
 }
 
 // Peek 查看值但不更新访问频率
-func (lfu *LFUCache) Peek(key interface{}) (interface{}, bool) {
+func (lfu *LFUCache2) Peek(key interface{}) (interface{}, bool) {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -207,7 +207,7 @@ func (lfu *LFUCache) Peek(key interface{}) (interface{}, bool) {
 }
 
 // GetFreq 获取key的访问频率
-func (lfu *LFUCache) GetFreq(key interface{}) int {
+func (lfu *LFUCache2) GetFreq(key interface{}) int {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -221,7 +221,7 @@ func (lfu *LFUCache) GetFreq(key interface{}) int {
 // ========== 泛型版本（Go 1.18+）==========
 
 // LFUCacheGeneric 泛型LFU缓存
-type LFUCacheGeneric[K comparable, V any] struct {
+type LFUCacheGeneric2[K comparable, V any] struct {
 	capacity int
 	minFreq  int
 	cache    map[K]*lfuNodeGeneric[K, V]
@@ -230,7 +230,7 @@ type LFUCacheGeneric[K comparable, V any] struct {
 }
 
 // lfuNodeGeneric 泛型LFU缓存节点
-type lfuNodeGeneric[K comparable, V any] struct {
+type lfuNodeGeneric2[K comparable, V any] struct {
 	key   K
 	value V
 	freq  int
@@ -238,7 +238,7 @@ type lfuNodeGeneric[K comparable, V any] struct {
 }
 
 // NewLFUCacheGeneric 创建一个新的泛型LFU缓存
-func NewLFUCacheGeneric[K comparable, V any](capacity int) *LFUCacheGeneric[K, V] {
+func NewLFUCacheGeneric2[K comparable, V any](capacity int) *LFUCacheGeneric[K, V] {
 	if capacity <= 0 {
 		capacity = 10
 	}
@@ -251,7 +251,7 @@ func NewLFUCacheGeneric[K comparable, V any](capacity int) *LFUCacheGeneric[K, V
 }
 
 // Get 获取缓存值
-func (lfu *LFUCacheGeneric[K, V]) Get(key K) (V, bool) {
+func (lfu *LFUCacheGeneric[K, V]) Get2(key K) (V, bool) {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -266,7 +266,7 @@ func (lfu *LFUCacheGeneric[K, V]) Get(key K) (V, bool) {
 }
 
 // Put 设置缓存值
-func (lfu *LFUCacheGeneric[K, V]) Put(key K, value V) {
+func (lfu *LFUCacheGeneric[K, V]) Put2(key K, value V) {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -296,7 +296,7 @@ func (lfu *LFUCacheGeneric[K, V]) Put(key K, value V) {
 }
 
 // Delete 删除缓存项
-func (lfu *LFUCacheGeneric[K, V]) Delete(key K) bool {
+func (lfu *LFUCacheGeneric[K, V]) Delete2(key K) bool {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -310,7 +310,7 @@ func (lfu *LFUCacheGeneric[K, V]) Delete(key K) bool {
 }
 
 // increaseFreq 增加节点的访问频率
-func (lfu *LFUCacheGeneric[K, V]) increaseFreq(node *lfuNodeGeneric[K, V]) {
+func (lfu *LFUCacheGeneric[K, V]) increaseFreq2(node *lfuNodeGeneric[K, V]) {
 	oldFreq := node.freq
 	if freqList, ok := lfu.freqMap[oldFreq]; ok {
 		freqList.Remove(node.elem)
@@ -329,7 +329,7 @@ func (lfu *LFUCacheGeneric[K, V]) increaseFreq(node *lfuNodeGeneric[K, V]) {
 }
 
 // addToFreqList 将节点添加到对应频率的列表
-func (lfu *LFUCacheGeneric[K, V]) addToFreqList(node *lfuNodeGeneric[K, V]) {
+func (lfu *LFUCacheGeneric[K, V]) addToFreqList2(node *lfuNodeGeneric[K, V]) {
 	freq := node.freq
 
 	if _, ok := lfu.freqMap[freq]; !ok {
@@ -340,7 +340,7 @@ func (lfu *LFUCacheGeneric[K, V]) addToFreqList(node *lfuNodeGeneric[K, V]) {
 }
 
 // removeLFU 移除最少使用的元素
-func (lfu *LFUCacheGeneric[K, V]) removeLFU() {
+func (lfu *LFUCacheGeneric[K, V]) removeLFU2() {
 	freqList, ok := lfu.freqMap[lfu.minFreq]
 	if !ok || freqList.Len() == 0 {
 		return
@@ -354,7 +354,7 @@ func (lfu *LFUCacheGeneric[K, V]) removeLFU() {
 }
 
 // removeNode 移除指定节点
-func (lfu *LFUCacheGeneric[K, V]) removeNode(node *lfuNodeGeneric[K, V]) {
+func (lfu *LFUCacheGeneric[K, V]) removeNode2(node *lfuNodeGeneric[K, V]) {
 	if freqList, ok := lfu.freqMap[node.freq]; ok {
 		freqList.Remove(node.elem)
 
@@ -367,19 +367,19 @@ func (lfu *LFUCacheGeneric[K, V]) removeNode(node *lfuNodeGeneric[K, V]) {
 }
 
 // Len 返回缓存中的元素数量
-func (lfu *LFUCacheGeneric[K, V]) Len() int {
+func (lfu *LFUCacheGeneric[K, V]) Len2() int {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 	return len(lfu.cache)
 }
 
 // Cap 返回缓存容量
-func (lfu *LFUCacheGeneric[K, V]) Cap() int {
+func (lfu *LFUCacheGeneric[K, V]) Cap2() int {
 	return lfu.capacity
 }
 
 // Clear 清空缓存
-func (lfu *LFUCacheGeneric[K, V]) Clear() {
+func (lfu *LFUCacheGeneric[K, V]) Clear2() {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -389,7 +389,7 @@ func (lfu *LFUCacheGeneric[K, V]) Clear() {
 }
 
 // Contains 检查key是否存在
-func (lfu *LFUCacheGeneric[K, V]) Contains(key K) bool {
+func (lfu *LFUCacheGeneric[K, V]) Contains2(key K) bool {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -398,7 +398,7 @@ func (lfu *LFUCacheGeneric[K, V]) Contains(key K) bool {
 }
 
 // Peek 查看值但不更新访问频率
-func (lfu *LFUCacheGeneric[K, V]) Peek(key K) (V, bool) {
+func (lfu *LFUCacheGeneric[K, V]) Peek2(key K) (V, bool) {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
@@ -411,7 +411,7 @@ func (lfu *LFUCacheGeneric[K, V]) Peek(key K) (V, bool) {
 }
 
 // GetFreq 获取key的访问频率
-func (lfu *LFUCacheGeneric[K, V]) GetFreq(key K) int {
+func (lfu *LFUCacheGeneric[K, V]) GetFreq2(key K) int {
 	lfu.mu.Lock()
 	defer lfu.mu.Unlock()
 
