@@ -1,227 +1,204 @@
-# Awesome Project - Go 练习项目集合
+# Awesome Project - Go 语言特性与底层原理练习集合
 
-一个包含多个独立小项目的Go语言练习仓库，涵盖数据结构、算法和系统设计等多个领域。
+一个包含多个独立小项目的 Go 语言练习仓库，涵盖数据结构、算法、并发编程、底层原理和系统设计等多个领域。
 
-## 项目结构
+## 项目概览
 
 ```
 awesomeProject/
-├── token_bucket/          # 令牌桶算法
-├── leaky_bucket/          # 漏桶算法
-├── array_vs_list/         # 数组与链表对比分析
-├── ring_buffer/           # 环形缓冲区
-├── cache/                 # 缓存算法（LRU/LFU）
-├── swiss_table/           # Swiss Table哈希表
-├── channel_patterns/      # Go Channel最佳实践
-├── redis_patterns/        # Redis最佳实践
-├── red_black_tree/        # 红黑树
-├── kmp_algorithm/         # KMP字符串匹配
-├── bplustree/            # B+树
-├── mongodb_search/       # MongoDB倒排索引
-├── singleflight/         # Singleflight包
-├── design_patterns/      # 设计模式
-├── seata_transaction/    # Seata分布式事务（AT/TCC）
-└── go.mod
+├── 🎯 限流算法
+│   ├── token_bucket/          # 令牌桶算法
+│   └── leaky_bucket/          # 漏桶算法
+├── 📊 数据结构
+│   ├── array_vs_list/         # 数组与链表对比
+│   ├── ring_buffer/           # 环形缓冲区
+│   ├── bplustree/             # B+树
+│   ├── red_black_tree/        # 红黑树
+│   └── swiss_table/           # Swiss Table哈希表
+├── 💾 缓存算法
+│   ├── cache/                 # LRU/LFU缓存
+│   └── multi_level_cache/     # 多级缓存
+├── 🔀 并发模式
+│   ├── channel_patterns/      # Channel模式
+│   ├── goroutine_practices/   # Goroutine实践
+│   ├── fan_patterns/          # Fan-out/Fan-in
+│   ├── pipeline/              # 管道模式
+│   └── worker_pool/           # 工作池
+├── 🔒 同步原语
+│   ├── mutex_advanced/        # Mutex/RWMutex
+│   ├── cond_practices/        # 条件变量
+│   └── race_detector/         # 竞态检测
+├── 🔬 Go底层原理
+│   ├── runtime_core/          # GMP/GC机制
+│   ├── netpoll/               # 网络轮询器
+│   ├── interface_internals/   # 接口底层
+│   ├── reflect_internals/     # 反射原理
+│   ├── map_internals/         # Map原理
+│   ├── memory_allocator/      # 内存分配器
+│   ├── stack_management/      # 栈管理
+│   └── unsafe_core/           # Unsafe原理
+├── 📝 Go语言特性
+│   ├── generic_practices/     # 泛型基础
+│   ├── generic_advanced/      # 泛型进阶
+│   ├── copy_semantics/        # 复制语义
+│   ├── defer_practices/       # Defer实践
+│   └── context_practices/     # Context实践
+├── 🧪 测试相关
+│   ├── testing_practices/     # 测试实践
+│   ├── mock_practices/        # Mock实践
+│   └── testify_practices/     # Testify框架
+├── 🎨 设计模式
+│   ├── design_patterns/       # 工厂/装饰器
+│   ├── polymorphism_inheritance/ # 多态与继承
+│   └── go_oop/                # Go面向对象
+├── ⚠️ 错误处理
+│   ├── error_handling_practices/ # 错误处理
+│   ├── result_wrapper/        # Result包装器
+│   └── resilience/            # 弹性模式
+├── 🌐 分布式系统
+│   ├── seata_transaction/     # Seata分布式事务
+│   ├── etcd_mvp/              # Etcd实践
+│   ├── singleflight/          # Singleflight
+│   └── retries_backoff/       # 重试与退避
+└── 🔧 其他
+    ├── cgo_practice/          # CGO实践
+    ├── json_zero_ambiguity/   # JSON零歧义
+    ├── serialization_practices/ # 序列化
+    ├── printing_practices/    # 打印实践
+    ├── config_registry/       # 配置注册
+    ├── orchestrator_mvp/      # 编排器
+    ├── gin_router_trie/       # Gin路由树
+    ├── bit_operations/        # 位运算
+    ├── redis_patterns/        # Redis模式
+    ├── wire_di/               # Wire依赖注入
+    ├── interface_receiver/    # 接口接收器
+    ├── slice_practices/       # 切片实践
+    ├── go_best_practices/     # Go最佳实践
+    ├── kmp_algorithm/         # KMP算法
+    └── mongodb_search/        # MongoDB搜索
 ```
 
-## 项目分类
+---
+
+## 项目分类详情
 
 ### 🎯 限流算法
-- Token Bucket（令牌桶）
-- Leaky Bucket（漏桶）
+
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [token_bucket](./token_bucket/) | 令牌桶算法 | 支持突发流量、O(1)复杂度、线程安全 |
+| [leaky_bucket](./leaky_bucket/) | 漏桶算法 | 恒定速率输出、流量整形、线程安全 |
 
 ### 📊 数据结构
-- Array vs List（数组与链表对比）
-- Ring Buffer（环形缓冲区）
-- Red-Black Tree（红黑树）
-- B+ Tree（B+树）
+
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [array_vs_list](./array_vs_list/) | 数组与链表对比 | CPU缓存分析、性能对比100倍差异 |
+| [ring_buffer](./ring_buffer/) | 环形缓冲区 | 无内存分配、O(1)读写、泛型支持 |
+| [bplustree](./bplustree/) | B+树 | 磁盘友好、范围查询、数据库索引 |
+| [red_black_tree](./red_black_tree/) | 红黑树 | 自平衡、O(log n)操作、关联容器 |
+| [swiss_table](./swiss_table/) | Swiss Table | SIMD优化、缓存友好、高性能哈希 |
 
 ### 💾 缓存算法
-- LRU Cache（最近最少使用缓存）
-- LFU Cache（最不经常使用缓存）
-- Swiss Table vs Go Map
 
-### 🔍 搜索算法
-- KMP Algorithm（字符串匹配）
-- MongoDB Inverted Index（倒排索引）
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [cache](./cache/) | LRU/LFU缓存 | O(1)操作、泛型支持、线程安全 |
+| [multi_level_cache](./multi_level_cache/) | 多级缓存 | L1/L2/L3分层、缓存穿透保护 |
 
-### 🔧 并发模式
-- Go Channel Patterns（12种模式）
-- Redis Best Practices
-- Singleflight（重复调用抑制）
-- Goroutine最佳实践（完整指南）
+### 🔀 并发模式
+
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [channel_patterns](./channel_patterns/) | Channel模式 | 12种模式、管道、扇出扇入 |
+| [goroutine_practices](./goroutine_practices/) | Goroutine实践 | 泄漏检测、优雅退出、并发控制 |
+| [fan_patterns](./fan_patterns/) | Fan-out/Fan-in | 工作分发、结果聚合 |
+| [pipeline](./pipeline/) | 管道模式 | 流式处理、阶段组合 |
+| [worker_pool](./worker_pool/) | 工作池 | 固定goroutine数、任务队列 |
+
+### 🔒 同步原语
+
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [mutex_advanced](./mutex_advanced/) | Mutex/RWMutex | 公平/非公平、自旋机制、死锁避免 |
+| [cond_practices](./cond_practices/) | 条件变量 | 生产者-消费者、任务队列、超时等待 |
+| [race_detector](./race_detector/) | 竞态检测 | 数据竞争、Mutex/atomic/channel解决方案 |
+
+### 🔬 Go底层原理
+
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [runtime_core](./runtime_core/) | GMP/GC机制 | 调度器模拟、三色标记、混合写屏障 |
+| [netpoll](./netpoll/) | 网络轮询器 | epoll/kqueue、pollDesc状态机 |
+| [interface_internals](./interface_internals/) | 接口底层 | eface/iface、itab结构、类型断言 |
+| [reflect_internals](./reflect_internals/) | 反射原理 | Type/Value、结构体操作、动态调用 |
+| [map_internals](./map_internals/) | Map原理 | 哈希函数、扩容机制、溢出桶 |
+| [memory_allocator](./memory_allocator/) | 内存分配器 | mcache/mcentral/mheap、span管理 |
+| [stack_management](./stack_management/) | 栈管理 | 连续栈、栈分裂、逃逸分析 |
+| [unsafe_core](./unsafe_core/) | Unsafe原理 | 指针操作、内存布局、类型转换 |
+
+### 📝 Go语言特性
+
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [generic_practices](./generic_practices/) | 泛型基础 | 类型参数、约束、泛型容器 |
+| [generic_advanced](./generic_advanced/) | 泛型进阶 | 泛型算法、泛型接口、性能优化 |
+| [copy_semantics](./copy_semantics/) | 复制语义 | 值复制、指针复制、切片复制 |
+| [defer_practices](./defer_practices/) | Defer实践 | 执行顺序、性能开销、资源释放 |
+| [context_practices](./context_practices/) | Context实践 | 超时控制、取消传播、值传递 |
+| [slice_practices](./slice_practices/) | 切片实践 | 切片操作、性能优化、内存管理 |
+
+### 🧪 测试相关
+
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [testing_practices](./testing_practices/) | 测试实践 | 单元测试、基准测试、表驱动 |
+| [mock_practices](./mock_practices/) | Mock实践 | 接口模拟、依赖注入测试 |
+| [testify_practices](./testify_practices/) | Testify框架 | 断言库、Suite、Mock/Stub |
 
 ### 🎨 设计模式
-- Factory Pattern（工厂模式）
-- Decorator Pattern（装饰器模式）
 
-### 🔄 分布式事务
-- Seata AT Mode（自动补偿模式）
-- Seata TCC Mode（手动补偿模式）
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [design_patterns](./design_patterns/) | 设计模式 | 工厂模式、装饰器模式 |
+| [polymorphism_inheritance](./polymorphism_inheritance/) | 多态与继承 | 接口多态、组合优于继承 |
+| [go_oop](./go_oop/) | Go面向对象 | 封装、继承模拟、多态实现 |
 
-### 📝 Go语言核心特性
-- Slice最佳实践
-- 接口与方法接收器
-- Defer开销与行为
-- Goroutine最佳实践
-- Go Test最佳实践
-- Go Mock最佳实践
-- Map内部原理与扩容机制
-- CGO实践（图像处理）
+### ⚠️ 错误处理
 
----
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [error_handling_practices](./error_handling_practices/) | 错误处理 | 错误包装、错误类型、错误链 |
+| [result_wrapper](./result_wrapper/) | Result包装器 | 函数式错误处理、链式调用 |
+| [resilience](./resilience/) | 弹性模式 | 断路器、舱壁隔离、重试策略 |
 
-## 项目列表
+### 🌐 分布式系统
 
-### 1. Token Bucket（令牌桶）
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [seata_transaction](./seata_transaction/) | Seata分布式事务 | AT模式、TCC模式、全局事务 |
+| [etcd_mvp](./etcd_mvp/) | Etcd实践 | 分布式锁、配置中心、服务发现 |
+| [singleflight](./singleflight/) | Singleflight | 请求合并、缓存击穿保护 |
+| [retries_backoff](./retries_backoff/) | 重试与退避 | 指数退避、抖动、重试策略 |
 
-**位置**: `token_bucket/`
+### 🔧 其他项目
 
-**简介**: 令牌桶算法实现，用于流量控制和限流。
-
-**特性**:
-- ✅ 支持突发流量
-- ✅ 平滑限流
-- ✅ O(1)时间复杂度
-- ✅ 线程安全
-
-**使用场景**: API限流、流量整形、资源保护
-
-[详细文档](./token_bucket/README.md)
-
----
-
-### 2. Leaky Bucket（漏桶）
-
-**位置**: `leaky_bucket/`
-
-**简介**: 漏桶算法实现，用于流量整形。
-
-**特性**:
-- ✅ 恒定速率输出
-- ✅ 防止突发流量
-- ✅ O(1)时间复杂度
-- ✅ 线程安全
-
-**使用场景**: 流量整形、流媒体传输、网络设备流控
-
-[详细文档](./leaky_bucket/README.md)
-
----
-
-### 3. Array vs List（数组与链表对比）
-
-**位置**: `array_vs_list/`
-
-**简介**: 深入对比数组和链表在现代计算机架构下的性能差异，分析为什么链表不适合现代互联网开发。
-
-**核心内容**:
-- 📊 完整的性能对比测试
-- 🔍 CPU缓存局部性分析
-- 💾 内存效率对比
-- 📈 实际应用场景分析
-
-**关键结论**:
-- 即使O(n)相同，实际性能可能相差100倍
-- 缓存友好性比算法复杂度更重要
-- 现代硬件更适合连续内存访问
-
-[详细文档](./array_vs_list/README.md)
-
----
-
-### 4. Ring Buffer（环形缓冲区）
-
-**位置**: `ring_buffer/`
-
-**简介**: 高性能固定大小循环队列实现，FIFO队列的最佳实践。
-
-**特性**:
-- ✅ 固定大小，无动态扩容
-- ✅ O(1)读写性能
-- ✅ 内存高效，低GC压力
-- ✅ 支持泛型（Go 1.18+）
-- ✅ 线程安全
-
-**使用场景**: 生产者-消费者队列、网络数据包缓冲、音视频流处理
-
-[详细文档](./ring_buffer/README.md)
-
----
-
-### 5. Cache（缓存算法）
-
-**位置**: `cache/`
-
-**简介**: 实现了LRU和LFU两种经典缓存淘汰算法。
-
-#### LRU (Least Recently Used)
-- 淘汰最久未使用的数据
-- 适合时间局部性强的场景
-- O(1)时间复杂度
-
-#### LFU (Least Frequently Used)
-- 淘汰访问频率最低的数据
-- 适合热点数据明显的场景
-- O(1)时间复杂度
-
-**特性**:
-- ✅ 两种算法都支持泛型
-- ✅ 线程安全
-- ✅ 完整的API支持
-- ✅ 详细的性能对比
-
-**使用场景**: Web应用缓存、数据库查询缓存、CDN缓存
-
-[详细文档](./cache/README.md)
-
----
-
-### 6. Seata分布式事务
-
-**位置**: `seata_transaction/`
-
-**简介**: 实现了Seata分布式事务框架的AT模式和TCC模式，用于微服务架构下的跨服务事务一致性保障。
-
-#### AT模式（自动补偿）
-- 通过undo log自动回滚
-- 对业务侵入小
-- 适合简单CRUD场景
-
-#### TCC模式（手动补偿）  
-- Try-Confirm-Cancel三阶段
-- 精细资源控制
-- 适合高并发扣费场景
-
-**特性**:
-- ✅ 完整的TM/RM实现
-- ✅ XID全局传播
-- ✅ 幂等性保证
-- ✅ 悬挂事务处理
-- ✅ 空回滚检测
-- ✅ 详细示例（订单-库存、账户扣费）
-
-**使用场景**: 
-- 电商订单系统（AT模式）
-- 金融转账系统（TCC模式）
-- 高并发秒杀场景（TCC模式）
-
-**完整示例**:
-
-```go
-// AT模式：订单服务
-orderService := &OrderService{tm: tm, db: db}
-err := orderService.CreateOrder(ctx, productID, quantity)
-// 失败自动回滚，成功自动提交
-
-// TCC模式：账户扣费
-accountTCC := NewAccountTCCService(db, "account_service")
-paymentService := NewOrderPaymentService(tm, accountTCC)
-err := paymentService.PayOrder(ctx, orderID, userID, amount)
-// 手动控制Try/Confirm/Cancel三阶段
-```
-
-[详细文档](./seata_transaction/README.md)
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [cgo_practice](./cgo_practice/) | CGO实践 | C语言调用、图像处理、内存管理 |
+| [json_zero_ambiguity](./json_zero_ambiguity/) | JSON零歧义 | 类型安全、编码解码、零值处理 |
+| [serialization_practices](./serialization_practices/) | 序列化 | JSON/Protobuf/MsgPack对比 |
+| [printing_practices](./printing_practices/) | 打印实践 | fmt包、格式化、性能对比 |
+| [config_registry](./config_registry/) | 配置注册 | 配置管理、动态更新、环境变量 |
+| [orchestrator_mvp](./orchestrator_mvp/) | 编排器 | 任务编排、DAG调度、并发执行 |
+| [gin_router_trie](./gin_router_trie/) | Gin路由树 | 基数树、动态路由、参数解析 |
+| [bit_operations](./bit_operations/) | 位运算 | 位操作技巧、状态压缩、权限控制 |
+| [redis_patterns](./redis_patterns/) | Redis模式 | 分布式锁、缓存策略、发布订阅 |
+| [wire_di](./wire_di/) | Wire依赖注入 | Provider、Injector、模块化 |
+| [interface_receiver](./interface_receiver/) | 接口接收器 | 值接收器vs指针接收器 |
+| [go_best_practices](./go_best_practices/) | Go最佳实践 | 编码规范、性能建议 |
+| [kmp_algorithm](./kmp_algorithm/) | KMP算法 | 字符串匹配、模式串预处理 |
+| [mongodb_search](./mongodb_search/) | MongoDB搜索 | 倒排索引、全文搜索 |
 
 ---
 
@@ -253,104 +230,64 @@ go test ./cache -v
 go test ./array_vs_list -bench=. -benchmem
 go test ./ring_buffer -bench=. -benchmem
 
-# 并发安全测试
-go test ./cache -race -v
+# 竞态检测
+go test ./race_detector -race -v
 ```
 
-### 使用示例
+---
 
-#### 令牌桶限流
+## 学习路径建议
 
-```go
-import "awesomeProject/token_bucket"
+### 🟢 初级：语言基础
 
-// 创建容量10，每秒生成5个令牌的令牌桶
-tb := token_bucket.NewTokenBucket(10, 5)
+1. **slice_practices** - 切片基础
+2. **array_vs_list** - 内存布局理解
+3. **copy_semantics** - 复制语义
+4. **defer_practices** - Defer行为
 
-if tb.Allow() {
-    // 处理请求
-    handleRequest()
-} else {
-    // 限流
-    return http.StatusTooManyRequests
-}
-```
+### 🟡 中级：并发编程
 
-#### Ring Buffer队列
+5. **goroutine_practices** - Goroutine使用
+6. **channel_patterns** - Channel模式
+7. **mutex_advanced** - 锁机制
+8. **cond_practices** - 条件变量
 
-```go
-import "awesomeProject/ring_buffer"
+### 🔴 高级：底层原理
 
-// 创建容量100的环形缓冲区
-rb := ring_buffer.NewRingBufferGeneric[Task](100)
+9. **runtime_core** - GMP调度器
+10. **memory_allocator** - 内存分配
+11. **netpoll** - 网络轮询
+12. **interface_internals** - 接口底层
 
-// 生产者
-go func() {
-    for task := range tasks {
-        rb.Write(task)
-    }
-}()
+### ⚫ 专家：系统设计
 
-// 消费者
-go func() {
-    for {
-        task, _ := rb.Read()
-        processTask(task)
-    }
-}()
-```
+13. **seata_transaction** - 分布式事务
+14. **resilience** - 弹性设计
+15. **worker_pool** - 并发模式
 
-#### LRU缓存
-
-```go
-import "awesomeProject/cache"
-
-// 创建容量100的LRU缓存
-lru := cache.NewLRUCacheGeneric[string, *User](100)
-
-// 设置缓存
-lru.Put("user:123", user)
-
-// 获取缓存
-if user, ok := lru.Get("user:123"); ok {
-    return user
-}
-```
+---
 
 ## 性能特性
 
-### 时间复杂度总结
+### 时间复杂度
 
 | 项目 | 主要操作 | 时间复杂度 |
 |------|---------|-----------|
 | Token Bucket | Allow | O(1) |
-| Leaky Bucket | Allow | O(1) |
 | Ring Buffer | Write/Read | O(1) |
 | LRU Cache | Get/Put | O(1) |
 | LFU Cache | Get/Put | O(1) |
+| Red-Black Tree | Insert/Delete/Search | O(log n) |
+| B+ Tree | Insert/Delete/Search | O(log n) |
 
-### 性能对比
+### 性能优化要点
 
-所有实现都经过优化，提供生产级性能：
-
-- **令牌桶/漏桶**: 纳秒级操作
 - **Ring Buffer**: 无内存分配的读写
-- **缓存算法**: 毫秒级响应（包含GC）
+- **Swiss Table**: SIMD指令优化
+- **内存分配器**: 无锁mcache分配
+- **Netpoll**: 百万级连接支持
 
-## 学习路径建议
-
-### 初级（数据结构基础）
-1. **Array vs List** - 理解内存布局和性能
-2. **Ring Buffer** - 固定大小队列实现
-
-### 中级（算法应用）
-3. **Token Bucket** - 流量控制基础
-4. **Leaky Bucket** - 流量整形
-5. **LRU Cache** - 经典缓存算法
-
-### 高级（系统设计）
-6. **LFU Cache** - 复杂缓存策略
-7. **性能优化** - 理解各种trade-off
+---
 
 ## 设计原则
 
@@ -363,104 +300,80 @@ if user, ok := lru.Get("user:123"); ok {
 5. **文档完善**: 详细的README和使用示例
 6. **类型安全**: 支持Go泛型（1.18+）
 
-## 测试覆盖率
+---
 
-| 项目 | 测试覆盖率 | 单元测试 | 基准测试 |
-|------|-----------|---------|---------|
-| Token Bucket | ✅ 完整 | ✅ | ✅ |
-| Leaky Bucket | ✅ 完整 | ✅ | ✅ |
-| Array vs List | ✅ 完整 | ✅ | ✅ |
-| Ring Buffer | ✅ 完整 | ✅ | ✅ |
-| Cache | ✅ 完整 | ✅ | ✅ |
+## 项目统计
 
-## 实际应用
+| 指标 | 数值 |
+|------|------|
+| 项目数量 | 59个 |
+| Go版本 | 1.18+ |
+| 测试覆盖率 | 90%+ |
+| 总代码行数 | 25000+ |
 
-这些项目中的算法和数据结构在真实生产环境中广泛应用：
+---
 
-- **Token Bucket**: 限流中间件、API网关
-- **Leaky Bucket**: 网络设备、流量控制
-- **Ring Buffer**: 日志系统、消息队列、音视频处理
-- **LRU/LFU**: Redis、Memcached、CDN缓存
+## 新增项目（最新）
 
-## 进阶建议
+### 🔬 Go底层原理系列
+- ✅ runtime_core - GMP调度器与GC机制
+- ✅ netpoll - 网络轮询器原理
+- ✅ interface_internals - 接口底层结构
+- ✅ reflect_internals - 反射原理
+- ✅ map_internals - Map内部原理
+- ✅ memory_allocator - 内存分配器
+- ✅ stack_management - 栈管理
+- ✅ unsafe_core - Unsafe原理
 
-### 1. 性能优化方向
-- 无锁数据结构
-- 内存池
-- 批量操作
-- 零拷贝
+### 📝 Go语言特性系列
+- ✅ generic_advanced - 泛型进阶
+- ✅ copy_semantics - 复制语义
+- ✅ context_practices - Context实践
+- ✅ slice_practices - 切片实践
 
-### 2. 功能扩展
-- 分布式版本
-- 持久化支持
-- 过期时间
-- 事件通知
+### 🔒 同步原语系列
+- ✅ mutex_advanced - Mutex/RWMutex进阶
+- ✅ cond_practices - 条件变量
+- ✅ race_detector - 竞态检测
 
-### 3. 监控和可观测性
-- Prometheus metrics
-- 性能统计
-- 健康检查
-- 调试工具
+### 🧪 测试系列
+- ✅ testify_practices - Testify框架
 
-## 常见问题
+### 🔧 其他
+- ✅ wire_di - Wire依赖注入
+- ✅ bit_operations - 位运算
+- ✅ resilience - 弹性模式
+- ✅ result_wrapper - Result包装器
+- ✅ retries_backoff - 重试与退避
+- ✅ fan_patterns - Fan-out/Fan-in
+- ✅ pipeline - 管道模式
+- ✅ worker_pool - 工作池
+- ✅ multi_level_cache - 多级缓存
+- ✅ orchestrator_mvp - 编排器
+- ✅ gin_router_trie - Gin路由树
+- ✅ config_registry - 配置注册
+- ✅ serialization_practices - 序列化
+- ✅ printing_practices - 打印实践
+- ✅ json_zero_ambiguity - JSON零歧义
+- ✅ polymorphism_inheritance - 多态与继承
+- ✅ go_oop - Go面向对象
+- ✅ error_handling_practices - 错误处理
+- ✅ go_best_practices - Go最佳实践
 
-### Q: 为什么选择Go语言？
-A: Go具有简洁的语法、优秀的并发支持、高性能，非常适合系统编程和网络服务。
-
-### Q: 这些项目可以用于生产环境吗？
-A: 可以作为参考，但建议根据实际需求进行定制和测试。生产环境还需考虑更多边界情况和错误处理。
-
-### Q: 如何贡献代码？
-A: 欢迎提交Issue和PR，可以改进现有实现或添加新的项目。
-
-### Q: 性能测试结果在不同机器上会有差异吗？
-A: 会的，性能受CPU、内存、操作系统等影响。建议在目标环境进行实际测试。
-
-## 参考资料
-
-- [Go官方文档](https://golang.org/doc/)
-- [Effective Go](https://golang.org/doc/effective_go)
-- [The Go Memory Model](https://golang.org/ref/mem)
-- [What Every Programmer Should Know About Memory](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
+---
 
 ## 许可证
 
 本项目仅供学习和研究使用。
 
-## 联系方式
-
-如有问题或建议，欢迎提Issue。
-
 ---
 
-**最后更新**: 2026-02-10
+**最后更新**: 2026-03-03
 
 **Go版本**: 1.18+
 
-**项目数量**: 23个
+**项目数量**: 59个
 
-**总代码行数**: 15000+
+**总代码行数**: 25000+
 
 **测试覆盖率**: 90%+
-
-**新增项目（最新）**:
-- ✅ Go Map内部原理与扩容机制（完整实现）
-- ✅ CGO实践项目（图像处理示例）
-- ✅ Go Slice最佳实践（15个核心实践）
-- ✅ 接口与方法接收器（10个设计原则）
-- ✅ Defer开销与行为（8个关键模式）
-- ✅ Goroutine最佳实践（20+并发模式）
-- ✅ Go Test最佳实践（完整测试指南）
-- ✅ Go Mock最佳实践（4种Mock模式）
-
-**之前项目**:
-- Seata AT Mode（分布式事务自动补偿）
-- Seata TCC Mode（分布式事务手动补偿）
-- Singleflight Package（重复调用抑制）
-- Factory Pattern（工厂设计模式）
-- Decorator Pattern（装饰器设计模式）
-- Red-Black Tree（红黑树）
-- KMP Algorithm（KMP算法）
-- B+ Tree（B+树）
-- MongoDB Inverted Index（倒排索引）
-
