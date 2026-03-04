@@ -60,6 +60,10 @@ awesomeProject/
 │   ├── etcd_mvp/              # Etcd实践
 │   ├── singleflight/          # Singleflight
 │   └── retries_backoff/       # 重试与退避
+├── 📦 中间件实践
+│   ├── kafka_practices/       # Kafka操作示例
+│   ├── redis_practices/       # Redis操作示例
+│   └── pgx_practices/         # PostgreSQL操作示例
 └── 🔧 其他
     ├── cgo_practice/          # CGO实践
     ├── json_zero_ambiguity/   # JSON零歧义
@@ -180,6 +184,14 @@ awesomeProject/
 | [etcd_mvp](./etcd_mvp/) | Etcd实践 | 分布式锁、配置中心、服务发现 |
 | [singleflight](./singleflight/) | Singleflight | 请求合并、缓存击穿保护 |
 | [retries_backoff](./retries_backoff/) | 重试与退避 | 指数退避、抖动、重试策略 |
+
+### 📦 中间件实践
+
+| 项目 | 说明 | 核心特性 |
+|------|------|----------|
+| [kafka_practices](./kafka_practices/) | Kafka操作示例 | 同步/异步生产者、消费者组、事务消息 |
+| [redis_practices](./redis_practices/) | Redis操作示例 | 全数据结构、分布式锁、限流器、缓存模式 |
+| [pgx_practices](./pgx_practices/) | PostgreSQL操作示例 | pgx驱动、GORM/Ent ORM、事务处理 |
 
 ### 🔧 其他项目
 
@@ -360,6 +372,11 @@ go test ./race_detector -race -v
 - ✅ error_handling_practices - 错误处理
 - ✅ go_best_practices - Go最佳实践
 
+### 📦 中间件实践系列
+- ✅ kafka_practices - Kafka操作示例（sarama）
+- ✅ redis_practices - Redis操作示例（go-redis）
+- ✅ pgx_practices - PostgreSQL操作示例（pgx/GORM/Ent）
+
 ---
 
 ## 许可证
@@ -372,7 +389,7 @@ go test ./race_detector -race -v
 
 **Go版本**: 1.18+
 
-**项目数量**: 59个
+**项目数量**: 62个
 
 **总代码行数**: 25000+
 
