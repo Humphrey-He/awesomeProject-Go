@@ -6,7 +6,7 @@ import (
 
 // ========== 简单工厂模式 ==========
 
-// Product 产品接口
+// ProductForBuilder 产品接口
 type Product interface {
 	Use() string
 }
@@ -17,7 +17,7 @@ type ConcreteProductA struct {
 }
 
 func (p *ConcreteProductA) Use() string {
-	return fmt.Sprintf("Using Product A: %s", p.name)
+	return fmt.Sprintf("Using ProductForBuilder A: %s", p.name)
 }
 
 // ConcreteProductB 具体产品B
@@ -26,7 +26,7 @@ type ConcreteProductB struct {
 }
 
 func (p *ConcreteProductB) Use() string {
-	return fmt.Sprintf("Using Product B: %s", p.name)
+	return fmt.Sprintf("Using ProductForBuilder B: %s", p.name)
 }
 
 // ProductType 产品类型
@@ -68,14 +68,14 @@ type Factory interface {
 type FactoryA struct{}
 
 func (f *FactoryA) CreateProduct() Product {
-	return &ConcreteProductA{name: "Factory A Product"}
+	return &ConcreteProductA{name: "Factory A ProductForBuilder"}
 }
 
 // FactoryB 工厂B
 type FactoryB struct{}
 
 func (f *FactoryB) CreateProduct() Product {
-	return &ConcreteProductB{name: "Factory B Product"}
+	return &ConcreteProductB{name: "Factory B ProductForBuilder"}
 }
 
 // ========== 抽象工厂模式 ==========
@@ -153,27 +153,27 @@ type Database interface {
 	Type() string
 }
 
-// MySQLDatabase MySQL数据库
-type MySQLDatabase struct {
+// MySQLDB MySQL数据库
+type MySQLDB struct {
 	host string
 	port int
 }
 
-func (db *MySQLDatabase) Connect() error {
+func (db *MySQLDB) Connect() error {
 	fmt.Printf("Connecting to MySQL at %s:%d\n", db.host, db.port)
 	return nil
 }
 
-func (db *MySQLDatabase) Query(sql string) (interface{}, error) {
+func (db *MySQLDB) Query(sql string) (interface{}, error) {
 	return fmt.Sprintf("MySQL query: %s", sql), nil
 }
 
-func (db *MySQLDatabase) Close() error {
+func (db *MySQLDB) Close() error {
 	fmt.Println("Closing MySQL connection")
 	return nil
 }
 
-func (db *MySQLDatabase) Type() string {
+func (db *MySQLDB) Type() string {
 	return "MySQL"
 }
 
@@ -228,7 +228,7 @@ func NewDatabaseFactory() *DatabaseFactory {
 func (f *DatabaseFactory) CreateDatabase(config DatabaseConfig) (Database, error) {
 	switch config.Type {
 	case MySQL:
-		return &MySQLDatabase{
+		return &MySQLDB{
 			host: config.Host,
 			port: config.Port,
 		}, nil
@@ -365,4 +365,3 @@ func (r *Registry) GetRegisteredTypes() []string {
 	}
 	return types
 }
-
