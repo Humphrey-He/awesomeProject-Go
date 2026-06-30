@@ -394,3 +394,47 @@ go test ./race_detector -race -v
 **总代码行数**: 25000+
 
 **测试覆盖率**: 90%+
+
+---
+
+## 新增子项（2026-03-12）
+
+### 网络与协议
+- `http_server_internals`：HTTP/1.1 解析与响应构建的最小实现
+- `grpc_practices`：gRPC 帧格式与一元拦截器链（概念实现）
+- `websocket_practices`：握手 Accept Key 与基础帧编解码
+
+### 存储与一致性
+- `raft_practices`：Raft 选举、投票与日志匹配规则
+- `lsm_tree`：Memtable/SSTable/Compaction 的最小实现
+- `log_structured_storage`：Append-only 日志结构化存储与压缩
+
+### 高级并发
+- `lock_free_structures`：CAS 无锁栈
+- `memory_model_practices`：安全发布与一次性执行语义
+
+### 业务架构
+- `ddd_practices`：聚合根、值对象、领域事件与仓储
+- `event_sourcing_mvp`：事件溯源与乐观并发控制
+
+---
+
+## New Modules (2026-03-12)
+
+### Networking & Protocols
+- `http_server_internals`: minimal HTTP/1.1 parsing and response construction
+- `grpc_practices`: gRPC framing and unary interceptor chain (conceptual)
+- `websocket_practices`: accept key computation and basic frame encode/decode
+
+### Storage & Consistency
+- `raft_practices`: leader election, voting, and log matching rules
+- `lsm_tree`: minimal memtable/SSTable/compaction model
+- `log_structured_storage`: append-only log store with compaction
+
+### Advanced Concurrency
+- `lock_free_structures`: CAS-based lock-free stack
+- `memory_model_practices`: safe publication and once semantics
+
+### Architecture
+- `ddd_practices`: aggregate root, value objects, domain events, repository
+- `event_sourcing_mvp`: event sourcing with optimistic concurrency
